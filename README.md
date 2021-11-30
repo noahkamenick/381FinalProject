@@ -12,8 +12,6 @@ a.	In a new terminal on your GUI virtual machine enter the command “ngrok http
 
 b.	Copy the https address for later use 
 
-[alt text]!(blob:https://liveuwstout-my.sharepoint.com/b1515dce-dba8-4f2f-ae3e-3a38e597839c)
-
 c.	Open GenieRobot.py in virtual studio and paste the https address here:
  
 
