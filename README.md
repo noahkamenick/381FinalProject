@@ -9,7 +9,7 @@ Virtual router allocated 4MB of memory
 Starting the bot…
 
 a.	In a new terminal on your GUI virtual machine enter the command “ngrok http 5000”
-
+   !(images/ngrok.png)
 b.	Copy the https address for later use 
 
 c.	Open GenieRobot.py in virtual studio and paste the https address here:
