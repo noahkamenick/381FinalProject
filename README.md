@@ -13,6 +13,8 @@ a.	In a new terminal on your GUI virtual machine enter the command “ngrok http
    ![ngroksc](images/ngrok.png)
 
 b.	Copy the https address for later use 
+   
+   ![ngroksc2](images/ngrok2.png)
 
 c.	Open GenieRobot.py in virtual studio and paste the https address here:
  
