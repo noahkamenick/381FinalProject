@@ -12,7 +12,7 @@ a.	In a new terminal on your GUI virtual machine enter the command “ngrok http
 
 b.	Copy the https address for later use 
 
-[alt text]!(https://prnt.sc/2106d05)
+[alt text]!(https://liveuwstout-my.sharepoint.com/:i:/g/personal/kamenickn3963_my_uwstout_edu/EZJm3ZLp8flPnVEULLggDe8B0yAnE1aRgwj6Ma_oHQGXxw?e=6El8ts)
 
 c.	Open GenieRobot.py in virtual studio and paste the https address here:
  
