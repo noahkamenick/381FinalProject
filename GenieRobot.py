@@ -7,7 +7,7 @@ import inventory as routers
 import useful_skills as useful
 import useless_skills as useless
 # Monitor interface
-import Monitor_Interfaces
+import Monitor_Interfaces as monitor
 #import paramiko_netmiko_skills as pn_skill
 #import netconf_resconf_skills as nr_skill
 #import ansible_skills as a_skill
@@ -120,6 +120,7 @@ bot.add_command("attachmentActions", "*", useless.handle_cards)
 bot.add_command("showcard", "show an adaptive card", useless.show_card)
 bot.add_command("dosomething", "help for do something", useless.do_something)
 bot.add_command("time", "Look up the current time", useless.current_time)
+bot.add_command("monitor", "Monitor Gi2 on branch router", monitor.MonitorInterfaces.learn_interface)
 # Every bot includes a default "/echo" command.  You can remove it, or any
 bot.remove_command("/echo")
 
