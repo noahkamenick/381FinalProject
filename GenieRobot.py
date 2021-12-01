@@ -6,6 +6,8 @@ import inventory as routers
 # Test Skills
 import useful_skills as useful
 import useless_skills as useless
+# Monitor interface
+import Monitor_Interfaces
 #import paramiko_netmiko_skills as pn_skill
 #import netconf_resconf_skills as nr_skill
 #import ansible_skills as a_skill
@@ -24,7 +26,7 @@ headers = {'Content-Type': 'application/yang-data+json',
 # Bot Details
 bot_email = '381-Final@webex.bot' #Fill in your Teams Bot email#
 teams_token = 'ZDE2MGRlMDMtYjViYi00ZmY4LTkxMmYtODY0MTE2Y2Q1YWM5OGE4NWViNGYtNGFl_P0A1_529b5ae9-ae34-46f8-9993-5c34c3d90856' #Fill in your Teams Bot Token#
-bot_url = "https://a40c-68-115-46-34.ngrok.io" #Fill in the ngrok forwarding address#
+bot_url = "https://a24d-144-13-254-58.ngrok.io" #Fill in the ngrok forwarding address#
 bot_app_name = 'CNIT-381 Network Final Auto Chat Bot'
 
 # Create a Bot Object
