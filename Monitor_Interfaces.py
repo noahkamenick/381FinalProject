@@ -56,6 +56,6 @@ class MonitorInterfaces():
 if __name__ == "__main__":
     # Test Functions
     mon = MonitorInterfaces()
-    mon.setup('testbed/routers.yml')
+    mon.setup('routers.yml')
     intfl = mon.learn_interface()
     print(intfl)
