@@ -35,7 +35,7 @@ class MonitorInterfaces():
 
     def learn_interface(self):
         text=""
-        address = Gi2_address()
+        address = resconfGet.Gi2_address()
         for dev in self.device_list:
             self.parser = ShowIpInterfaceBrief(dev)
             out = self.parser.parse()
@@ -44,7 +44,7 @@ class MonitorInterfaces():
             # let's find  the interface
             for interface, value in out['interface'].items():
                 #print(interface)
-                if address != Gi2_address():
+                if address != resconfGet.Gi2_address():
                     text+="\n"+interface +" on " + dev.name + " has changed"
                     # Create a Genie conf object out of it
                     # This way, it will be OS/Cli/Yang Agnostic    

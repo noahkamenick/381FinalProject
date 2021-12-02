@@ -16,7 +16,7 @@ json_object = json.loads(json.dumps(response_json, indent=4))
 ipv4List = (json_object["Cisco-IOS-XE-interfaces-oper:interface"])
 
 def Gi2_address():
-    print(ipv4List["ipv4"])
-
+    return ipv4List["ipv4"]
+    
 Gi2_address()
 #end of file
