@@ -9,7 +9,14 @@ headers = { "Accept": "application/yang-data+json",
 }
 basicauth = ("cisco", "cisco123!")
 resp = requests.get(api_url, auth=basicauth, headers=headers, verify=False)
-print(resp)
+# print(resp)
+# The following block formats output to give just the ipv4 address
 response_json = resp.json()
-print(json.dumps(response_json, indent=4))
+json_object = json.loads(json.dumps(response_json, indent=4))
+ipv4List = (json_object["Cisco-IOS-XE-interfaces-oper:interface"])
+
+def Gi2_address():
+    print(ipv4List["ipv4"])
+
+Gi2_address()
 #end of file
