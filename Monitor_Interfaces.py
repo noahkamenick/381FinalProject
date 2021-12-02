@@ -12,6 +12,9 @@ from genie.libs.parser.iosxe.show_interface import ShowIpInterfaceBrief
 # Import Genie Conf
 from genie.libs.conf.interface import Interface
 
+# Import resconf-get skill to check Gi2 ip address 
+import resconf-get
+
 class MonitorInterfaces():
 
     def setup(self, testbed):
@@ -32,6 +35,7 @@ class MonitorInterfaces():
 
     def learn_interface(self):
         text=""
+        address = Gi2_address()
         for dev in self.device_list:
             self.parser = ShowIpInterfaceBrief(dev)
             out = self.parser.parse()
@@ -40,8 +44,8 @@ class MonitorInterfaces():
             # let's find  the interface
             for interface, value in out['interface'].items():
                 #print(interface)
-                if 'down' in value['status']:
-                    text+="\n"+interface +" on " + dev.name + " is down"
+                if address != Gi2_address():
+                    text+="\n"+interface +" on " + dev.name + " has changed"
                     # Create a Genie conf object out of it
                     # This way, it will be OS/Cli/Yang Agnostic    
                     self.intf1.append(Interface(name=interface, device=dev))
