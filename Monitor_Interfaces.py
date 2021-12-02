@@ -13,7 +13,7 @@ from genie.libs.parser.iosxe.show_interface import ShowIpInterfaceBrief
 from genie.libs.conf.interface import Interface
 
 # Import resconf-get skill to check Gi2 ip address 
-import resconf-get
+import resconfGet
 
 class MonitorInterfaces():
 
