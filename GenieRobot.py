@@ -120,7 +120,7 @@ bot.add_command("attachmentActions", "*", useless.handle_cards)
 bot.add_command("showcard", "show an adaptive card", useless.show_card)
 bot.add_command("dosomething", "help for do something", useless.do_something)
 bot.add_command("time", "Look up the current time", useless.current_time)
-bot.add_command("monitor", "Monitor Gi2 on branch router", monitor.MonitorInterfaces.learn_interface)
+bot.add_command("monitor", "Monitor Gi2 on branch router", monitor.MonitorInterfaces.learn_interface_ip)
 # Every bot includes a default "/echo" command.  You can remove it, or any
 bot.remove_command("/echo")
 

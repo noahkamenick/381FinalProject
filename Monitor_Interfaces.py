@@ -1,4 +1,4 @@
-import time
+from datetime import datetime
 import json
 
 # Genie import
@@ -32,32 +32,58 @@ class MonitorInterfaces():
         return str
 
     def learn_interface_ip(self):
-        text=""
-        for dev in self.device_list:
+        self.prev = {}
+        self.summ = ""
+        for dev in self.device_list: # For each device in the device list (routers.yml)
             self.parser = ShowIpInterfaceBrief(dev) 
-            curr = self.parser.parse() # Parse current, fetched addresses and interfaces
-           
-            with open('previous_ip.json', 'r') as f: # Open previous json file
-                prev = json.load(f) # Load into prev object
-                
-                
-            print(prev) # print prev json dictionary
+            self.curr = self.parser.parse() # Parse current, fetched addresses and interfaces
             
-            for curr_int, curr_value in curr['interface'].items():
 
-                    for prev_int, prev_value in prev['interface'].items():
+            try:
+                with open('previous_ip_{name}.json'.format(name=dev.hostname)) as f: # Open previous json file
+                    self.prev = json.load(f) # Load into prev object
+                
+                
+            except:
+                print("No previous file found for {name} \nCreating new file...".format(name=dev.hostname))
+                with open('previous_ip_{name}.json'.format(name=dev.hostname), 'w+') as intoFile:
+                    json.dump(self.curr, intoFile)               
+            
+            self.summ += self.ipAddLogic(dev.hostname)
+            with open('previous_ip_{name}.json'.format(name=dev.hostname), 'w+') as intoFile:
+                json.dump(self.curr, intoFile)
+                
+        return self.summ           
 
-                        if not "unassigned" in prev_value['ip_address']:
-                            
-                            if curr_value['ip_address'] != prev_value['ip_address'] and curr_int == prev_int:
+            
 
-                                text+="\n"+ curr_int +" IP changed on " + dev.name + "\n --Previous IP: " + prev_value['ip_address'] + "\n--New IP: " + curr_value['ip_address']
-                       
-        with open('previous_ip.json', 'w') as f:
-            json.dump(prev, f)
+            #print(self.prev) # print prev json dictionary
+            
+          
+        """
+          with open('previous_ip_{name}.json'.format(name=dev.hostname), 'w+') as f:
+            json.dump(self.prev, f)
+          
+          """             
         
-        return text
+        
     
+    def ipAddLogic(self, hostname):
+          
+        text = ""
+        
+        for curr_int, curr_value in self.curr['interface'].items():
+
+                for prev_int, prev_value in self.prev['interface'].items():
+
+                    if not "unassigned" in prev_value['ip_address']:
+                            
+                        if curr_value['ip_address'] != prev_value['ip_address'] and curr_int == prev_int:
+
+                            text+="\n\n"+ curr_int +" IP changed on " + hostname + " at {tim}".format(tim=datetime.now()) + "\n --Previous IP: " + prev_value['ip_address'] + "\n --New IP: " + curr_value['ip_address']
+                            
+                    
+        return text
 
 if __name__ == "__main__":
     # Test Functions
