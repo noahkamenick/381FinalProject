@@ -1,4 +1,5 @@
 import time
+import json
 
 # Genie import
 from genie.conf import Genie
@@ -11,9 +12,6 @@ from genie.libs.parser.iosxe.show_interface import ShowIpInterfaceBrief
 
 # Import Genie Conf
 from genie.libs.conf.interface import Interface
-
-# Import resconf-get skill to check Gi2 ip address 
-import resconfGet
 
 class MonitorInterfaces():
 
@@ -33,23 +31,31 @@ class MonitorInterfaces():
 
         return str
 
-    def learn_interface(self):
+    def learn_interface_ip(self):
         text=""
-        address = resconfGet.Gi2_address()
         for dev in self.device_list:
-            self.parser = ShowIpInterfaceBrief(dev)
-            out = self.parser.parse()
-            print(out)
-            self.intf1 = []
-            # let's find  the interface
-            for interface, value in out['interface'].items():
-                #print(interface)
-                if address != resconfGet.Gi2_address():
-                    text+="\n"+interface +" on " + dev.name + " has changed"
-                    # Create a Genie conf object out of it
-                    # This way, it will be OS/Cli/Yang Agnostic    
-                    self.intf1.append(Interface(name=interface, device=dev))
+            self.parser = ShowIpInterfaceBrief(dev) 
+            curr = self.parser.parse() # Parse current, fetched addresses and interfaces
+           
+            with open('previous_ip.json', 'r') as f: # Open previous json file
+                prev = json.load(f) # Load into prev object
+                
+                
+            print(prev) # print prev json dictionary
+            
+            for curr_int, curr_value in curr['interface'].items():
 
+                    for prev_int, prev_value in prev['interface'].items():
+
+                        if not "unassigned" in prev_value['ip_address']:
+                            
+                            if curr_value['ip_address'] != prev_value['ip_address'] and curr_int == prev_int:
+
+                                text+="\n"+ curr_int +" IP changed on " + dev.name + "\n --Previous IP: " + prev_value['ip_address'] + "\n--New IP: " + curr_value['ip_address']
+                       
+        with open('previous_ip.json', 'w') as f:
+            json.dump(prev, f)
+        
         return text
     
 
@@ -57,5 +63,5 @@ if __name__ == "__main__":
     # Test Functions
     mon = MonitorInterfaces()
     mon.setup('routers.yml')
-    intfl = mon.learn_interface()
+    intfl = mon.learn_interface_ip()
     print(intfl)
