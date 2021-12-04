@@ -1,4 +1,5 @@
-import time
+from datetime import datetime
+import json
 
 # Genie import
 from genie.conf import Genie
@@ -11,9 +12,6 @@ from genie.libs.parser.iosxe.show_interface import ShowIpInterfaceBrief
 
 # Import Genie Conf
 from genie.libs.conf.interface import Interface
-
-# Import resconf-get skill to check Gi2 ip address 
-import resconfGet
 
 class MonitorInterfaces():
 
@@ -33,29 +31,63 @@ class MonitorInterfaces():
 
         return str
 
-    def learn_interface(self):
-        text=""
-        address = resconfGet.Gi2_address()
-        for dev in self.device_list:
-            self.parser = ShowIpInterfaceBrief(dev)
-            out = self.parser.parse()
-            print(out)
-            self.intf1 = []
-            # let's find  the interface
-            for interface, value in out['interface'].items():
-                #print(interface)
-                if address != resconfGet.Gi2_address():
-                    text+="\n"+interface +" on " + dev.name + " has changed"
-                    # Create a Genie conf object out of it
-                    # This way, it will be OS/Cli/Yang Agnostic    
-                    self.intf1.append(Interface(name=interface, device=dev))
+    def learn_interface_ip(self):
+        self.prev = {}
+        self.summ = ""
+        for dev in self.device_list: # For each device in the device list (routers.yml)
+            self.parser = ShowIpInterfaceBrief(dev) 
+            self.curr = self.parser.parse() # Parse current, fetched addresses and interfaces
+            
 
-        return text
+            try:
+                with open('previous_ip_{name}.json'.format(name=dev.hostname)) as f: # Open previous json file
+                    self.prev = json.load(f) # Load into prev object
+                
+                
+            except:
+                print("No previous file found for {name} \nCreating new file...".format(name=dev.hostname))
+                with open('previous_ip_{name}.json'.format(name=dev.hostname), 'w+') as intoFile:
+                    json.dump(self.curr, intoFile)               
+            
+            self.summ += self.ipAddLogic(dev.hostname)
+            with open('previous_ip_{name}.json'.format(name=dev.hostname), 'w+') as intoFile:
+                json.dump(self.curr, intoFile)
+                
+        return self.summ           
+
+            
+
+            #print(self.prev) # print prev json dictionary
+            
+          
+        """
+          with open('previous_ip_{name}.json'.format(name=dev.hostname), 'w+') as f:
+            json.dump(self.prev, f)
+          
+          """             
+        
+        
     
+    def ipAddLogic(self, hostname):
+          
+        text = ""
+        
+        for curr_int, curr_value in self.curr['interface'].items():
+
+                for prev_int, prev_value in self.prev['interface'].items():
+
+                    if not "unassigned" in prev_value['ip_address']:
+                            
+                        if curr_value['ip_address'] != prev_value['ip_address'] and curr_int == prev_int:
+
+                            text+="\n\n"+ curr_int +" IP changed on " + hostname + " at {tim}".format(tim=datetime.now()) + "\n --Previous IP: " + prev_value['ip_address'] + "\n --New IP: " + curr_value['ip_address']
+                            
+                    
+        return text
 
 if __name__ == "__main__":
     # Test Functions
     mon = MonitorInterfaces()
     mon.setup('routers.yml')
-    intfl = mon.learn_interface()
+    intfl = mon.learn_interface_ip()
     print(intfl)
