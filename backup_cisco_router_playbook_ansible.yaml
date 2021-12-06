@@ -1,7 +1,7 @@
 ---
 - name: AUTOMATIC BACKUP OF RUNNING-CONFIG
   hosts: routers
-  gather_facts: false
+  gather_facts: False
   connection: local
 
   tasks:
@@ -14,4 +14,4 @@
     - name: SAVE OUTPUT TO ./backups/
       copy:
         content: "{{ config.stdout[0] }}"
-        dest: "backups/show_run_{{ inventory_hostname }}.txt"
+        dest: "backups/show_run_{{ inventory_hostname }}_{{ ansible_timestamp }}.txt"

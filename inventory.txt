@@ -12,3 +12,4 @@ ansible_become_pass=cisco
 
 [all:vars]
 ansible_port=22
+ansible_timestamp="{{lookup('pipe', 'date +%H:%M_%m_%d_%Y')}}"
