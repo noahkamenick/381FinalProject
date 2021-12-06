@@ -1,4 +1,5 @@
 ### teams Bot ###
+from typing import List
 from webexteamsbot import TeamsBot
 from webexteamsbot.models import Response
 ### Utilities Libraries
@@ -6,11 +7,18 @@ import inventory as routers
 # Test Skills
 import useful_skills as useful
 import useless_skills as useless
-# Monitor interface
-import Monitor_Interfaces as monitor
+# Monitor interfac
+from Monitor_Interfaces import MonitorInterfaces
 #import paramiko_netmiko_skills as pn_skill
 #import netconf_resconf_skills as nr_skill
 #import ansible_skills as a_skill
+import threading as threads
+import time
+
+# Create  thread list
+threads = []
+# Exit flag for threads
+exit_flag = False
 
 # Router Info 
 device_address = routers.router['host']
@@ -26,7 +34,7 @@ headers = {'Content-Type': 'application/yang-data+json',
 # Bot Details
 bot_email = '381-Final@webex.bot' #Fill in your Teams Bot email#
 teams_token = 'ZDE2MGRlMDMtYjViYi00ZmY4LTkxMmYtODY0MTE2Y2Q1YWM5OGE4NWViNGYtNGFl_P0A1_529b5ae9-ae34-46f8-9993-5c34c3d90856' #Fill in your Teams Bot Token#
-bot_url = "https://35b4-12-206-249-123.ngrok.io" #Fill in the ngrok forwarding address#
+bot_url = "https://7f45-144-13-254-70.ngrok.io" #Fill in the ngrok forwarding address#
 bot_app_name = 'CNIT-381 Network Final Auto Chat Bot'
 
 # Create a Bot Object
@@ -105,6 +113,103 @@ def get_int_ips(incoming_msg):
         except KeyError:
             response.markdown +="IP Address: UNCONFIGURED\n"
     return response
+"""
+def Monitor_ips(ignition):
+
+    response = Response()
+    active = True
+    if(ignition == "on"):
+        response.markdown = "Running Monitor...\nType /stopmon to abort"
+        while(active==True):
+            learn = MonitorInterfaces()
+            learn.setup('routers.yml')
+            response.markdown += learn.learn_interface_ip()
+            continue
+            
+    if(ignition == "off"):
+        active == False
+        response.markdown = "Stopped Monitor..."
+        return
+"""
+        
+def check_int(incoming_msg):
+   
+    response = Response()
+    response.text = "Gathering  Information...\n\n"
+
+    mon = MonitorInterfaces()
+    status = mon.setup('routers.yml')
+    if status != "":
+        response.text += status
+        return response
+
+    status = mon.learn_interface_ip()
+    if status == "":
+        response.text += "Nothing has changed"
+    else:
+        response.text += status
+
+    return response
+
+def monitor_int(incoming_msg):
+    """Monitor interfaces in a thread
+    """
+    response = Response()
+    response.text = "Monitoring interfaces...\n\n"
+    monitor_int_job(incoming_msg)
+    th = threads.Thread(target=monitor_int_job, args=(incoming_msg,))
+    threads.append(th)
+
+    # starting the threads
+    for th in threads:
+        th.start()
+
+    # waiting for the threads to finish
+    for th in threads:
+        th.join()
+
+    return response
+
+def monitor_int_job(incoming_msg):
+    response = Response()
+    msgtxt_old=""
+   
+    global exit_flag
+    while exit_flag == False:
+        msgtxt = check_int(incoming_msg)
+        print(msgtxt.text)
+        w = str(msgtxt.text)
+        useless.create_message(incoming_msg.roomId, w)
+        time.sleep(10)
+        #return response
+        
+    print("exited thread")
+    exit_flag = False
+
+    
+
+def stop_monitor(incoming_msg):
+    """Monitor interfaces in a thread
+    """
+    response = Response()
+    response.text = "Stopping all Monitors...\n\n"
+    global exit_flag
+    exit_flag = True
+    time.sleep(5)
+    response.text += "Done!..\n\n"
+
+    return response
+
+
+
+    
+    
+
+
+        
+
+
+
 
 # Set the bot greeting.
 bot.set_greeting(greeting)
@@ -120,7 +225,8 @@ bot.add_command("attachmentActions", "*", useless.handle_cards)
 bot.add_command("showcard", "show an adaptive card", useless.show_card)
 bot.add_command("dosomething", "help for do something", useless.do_something)
 bot.add_command("time", "Look up the current time", useless.current_time)
-bot.add_command("monitor", "Monitor Gi2 on branch router", monitor.MonitorInterfaces.learn_interface_ip)
+bot.add_command("monitor interfaces", "This job will monitor interface status in back ground", monitor_int)
+bot.add_command("stop monitoring", "This job will stop all monitor job", stop_monitor)
 # Every bot includes a default "/echo" command.  You can remove it, or any
 bot.remove_command("/echo")
 
