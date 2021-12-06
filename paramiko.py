@@ -21,7 +21,7 @@ if ssh_client.get_transport().is_active():
 
 shell = ssh_client.invoke_shell() #Create Shell object
 shell.send('enable\n')
-shell.send(password)
+shell.send('password')
 shell.send('\n')
 shell.send('terminal length 0\n')
 shell.send('show int br\n')
