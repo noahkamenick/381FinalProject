@@ -4,6 +4,7 @@ from webexteamsbot import TeamsBot
 from webexteamsbot.models import Response
 ### Utilities Libraries
 import inventory as routers
+from resconfGet import Gi2_address
 # Test Skills
 import useful_skills as useful
 import useless_skills as useless
@@ -14,7 +15,7 @@ from Monitor_Interfaces import MonitorInterfaces
 #import ansible_skills as a_skill
 import threading as threads
 import time
-from myparamiko import paramik
+from myParamiko import paramik
 
 # Create  thread list
 threads = []
@@ -212,13 +213,13 @@ def paramik_skill(incoming_msg):
     
     return response 
     
+def restconf_skill(incoming_msg):
     
+    response = Response()
 
+    response.text = "R2's GigabitEthernet2 Interface IP is {}".format(Gi2_address())
 
-        
-
-
-
+    return response
 
 # Set the bot greeting.
 bot.set_greeting(greeting)
@@ -237,6 +238,7 @@ bot.add_command("time", "Look up the current time", useless.current_time)
 bot.add_command("monitor interfaces", "This job will monitor interface status in back ground", monitor_int)
 bot.add_command("stop monitoring", "This job will stop all monitor job", stop_monitor)
 bot.add_command("sh int br", "View Router 2 'sh ip int br' output using Paramiko", paramik_skill)
+bot.add_command("sh ip gi2", "Show IP for R2's GigabitEthernet2 Interface", restconf_skill)
 # Every bot includes a default "/echo" command.  You can remove it, or any
 bot.remove_command("/echo")
 

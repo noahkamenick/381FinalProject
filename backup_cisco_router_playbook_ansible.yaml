@@ -11,6 +11,11 @@
           - show running-config
       register: config
 
+    - name: Creates directory
+      file:
+        path: ./backups/        
+        state: directory
+
     - name: SAVE OUTPUT TO ./backups/
       copy:
         content: "{{ config.stdout[0] }}"
