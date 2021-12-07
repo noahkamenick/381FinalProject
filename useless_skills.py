@@ -1,10 +1,10 @@
 ### teams Bot ###
-from webexteamsbot import TeamsBot
 from webexteamsbot.models import Response
 import json
 import requests
 
-teams_token = 'ZDE2MGRlMDMtYjViYi00ZmY4LTkxMmYtODY0MTE2Y2Q1YWM5OGE4NWViNGYtNGFl_P0A1_529b5ae9-ae34-46f8-9993-5c34c3d90856' #Fill in your Teams Bot Token#
+teams_token = "ZDE2MGRlMDMtYjViYi00ZmY4LTkxMmYtODY0MTE2Y2Q1YWM5OGE4NWViNGYtNGFl_P0A1_529b5ae9-ae34-46f8-9993-5c34c3d90856"  # Fill in your Teams Bot Token#
+
 
 def do_something(incoming_msg):
     """
@@ -14,15 +14,15 @@ def do_something(incoming_msg):
     """
     return "i did what you said - {}".format(incoming_msg.text)
 
+
 def show_card(incoming_msg):
     attachment = open("cardpayload.json").read()
     backupmessage = "You have an assignment!!!"
 
-    c = create_message_with_attachment(
-        incoming_msg.roomId, msgtxt=backupmessage, attachment=json.loads(attachment)
-    )
+    c = create_message_with_attachment(incoming_msg.roomId, msgtxt=backupmessage, attachment=json.loads(attachment))
     print(c)
     return ""
+
 
 # An example of how to process card actions
 def handle_cards(api, incoming_msg):
@@ -38,6 +38,7 @@ def handle_cards(api, incoming_msg):
     # #print(meeting['content']['body'][0]['text'])
     return "New Due Date is- {}".format(m["inputs"])
 
+
 def create_message(rid, msgtxt):
     headers = {
         "content-type": "application/json; charset=utf-8",
@@ -45,9 +46,10 @@ def create_message(rid, msgtxt):
     }
 
     url = "https://api.ciscospark.com/v1/messages"
-    data = {"roomId": rid,"attachments":[], "markdown": msgtxt}
+    data = {"roomId": rid, "attachments": [], "markdown": msgtxt}
     response = requests.post(url, json=data, headers=headers)
     return response.json()
+
 
 def create_message_with_attachment(rid, msgtxt, attachment):
     headers = {
@@ -59,6 +61,7 @@ def create_message_with_attachment(rid, msgtxt, attachment):
     data = {"roomId": rid, "attachments": [attachment], "markdown": msgtxt}
     response = requests.post(url, json=data, headers=headers)
     return response.json()
+
 
 def get_attachment_actions(attachmentid):
     headers = {
@@ -89,7 +92,7 @@ def ret_message(incoming_msg):
 
     # Craft a URL for a file to attach to message
     u = "https://giphy.com/gifs/justin-doge-3Owa0TWYqHi5RZYGql"
-    response.link= u
+    response.link = u
     return response
 
 
@@ -120,7 +123,8 @@ def current_time(incoming_msg):
     timezone_name = r["timeZoneName"]
 
     # Craft a reply string.
-    reply = "In {TZ} it is currently {TIME} on {DATE}.".format(
-        TZ=timezone_name, TIME=cur_time, DATE=cur_date
-    )
+    reply = "In {TZ} it is currently {TIME} on {DATE}.".format(TZ=timezone_name, TIME=cur_time, DATE=cur_date)
     return reply
+
+
+# Just a change to run it through CI/CD linting/formatting sorta deal
