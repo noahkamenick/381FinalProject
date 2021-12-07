@@ -38,9 +38,5 @@ def paramik():
     if print(ssh_client.get_transport().is_active()) == True:
         print('Closing connection')
         ssh_client.close()
-        return output
-
-if __name__ == "__main__":
     
-    paramik()
-    
+    return output

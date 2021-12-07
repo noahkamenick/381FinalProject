@@ -14,6 +14,7 @@ from Monitor_Interfaces import MonitorInterfaces
 #import ansible_skills as a_skill
 import threading as threads
 import time
+from myparamiko import paramik
 
 # Create  thread list
 threads = []
@@ -34,7 +35,7 @@ headers = {'Content-Type': 'application/yang-data+json',
 # Bot Details
 bot_email = '381-Final@webex.bot' #Fill in your Teams Bot email#
 teams_token = 'ZDE2MGRlMDMtYjViYi00ZmY4LTkxMmYtODY0MTE2Y2Q1YWM5OGE4NWViNGYtNGFl_P0A1_529b5ae9-ae34-46f8-9993-5c34c3d90856' #Fill in your Teams Bot Token#
-bot_url = "https://7f45-144-13-254-70.ngrok.io" #Fill in the ngrok forwarding address#
+bot_url = "https://5b75-12-206-249-123.ngrok.io" #Fill in the ngrok forwarding address#
 bot_app_name = 'CNIT-381 Network Final Auto Chat Bot'
 
 # Create a Bot Object
@@ -200,8 +201,16 @@ def stop_monitor(incoming_msg):
 
     return response
 
+def paramik_skill(incoming_msg):
+    """
+    Spit out "sh ip int br" output
+    """
 
-
+    response = Response()
+    response.text = "Show IP interface brief with Paramiko\n"
+    response.text = paramik()
+    
+    return response 
     
     
 
@@ -227,6 +236,7 @@ bot.add_command("dosomething", "help for do something", useless.do_something)
 bot.add_command("time", "Look up the current time", useless.current_time)
 bot.add_command("monitor interfaces", "This job will monitor interface status in back ground", monitor_int)
 bot.add_command("stop monitoring", "This job will stop all monitor job", stop_monitor)
+bot.add_command("sh int br", "View Router 2 'sh ip int br' output using Paramiko", paramik_skill)
 # Every bot includes a default "/echo" command.  You can remove it, or any
 bot.remove_command("/echo")
 
