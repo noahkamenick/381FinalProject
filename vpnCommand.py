@@ -35,4 +35,4 @@ def vpn_command(prev_ip, new_ip):
         print('Closing connection')
         ssh_client.close()
 
-    return str("\nExecuted VPN Peer IP Change")
+    return str("\nExecuted VPN Peer IP Change") #
