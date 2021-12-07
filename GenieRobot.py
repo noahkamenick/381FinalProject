@@ -135,7 +135,7 @@ def Monitor_ips(ignition):
             learn.setup('routers.yml')
             response.markdown += learn.learn_interface_ip()
             continue
-            
+
     if(ignition == "off"):
         active == False
         response.markdown = "Stopped Monitor..."
@@ -254,3 +254,4 @@ if __name__ == "__main__":
     bot.run(host="0.0.0.0", port=5000)
 
 # Just a change to run it through CI/CD linting/formatting sorta deal
+# Another format run
