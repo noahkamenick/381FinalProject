@@ -18,5 +18,5 @@ ipv4List = (json_object["Cisco-IOS-XE-interfaces-oper:interface"])
 def Gi2_address():
     return ipv4List["ipv4"]
     
-# print(Gi2_address())
+
 #end of file
