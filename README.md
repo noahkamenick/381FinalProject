@@ -22,6 +22,16 @@ Check that R1 can ping 172.16.0.2 this should work
 
 Check that R1 can ping 2.2.2.2 this should work
 
+d. Start up the bot: 
 
+Interact with the bot and receive a greeting message by sending the bot a message like “hey”
 
+![botsc](images/bot1.png)
 
+Use the /help command to see what skills the bot has.
+
+###NEED SCREENSHOT###
+
+Now on R1 issue the ping command ping 2.2.2.2 repeat 10000
+
+Finally change the IP address of Gi2 on CSR2 and we should see that the pings on CSR1 stop and then continue after the vpn tunnel is reestablished.
