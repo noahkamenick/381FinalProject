@@ -127,5 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-
+previous_ip_R1.json
+previous_ip_R2.json
 .vscode/settings.json
