@@ -1,6 +1,5 @@
 import paramiko
 import time
-import getpass
 
 
 def paramik():

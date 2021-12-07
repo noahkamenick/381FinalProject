@@ -13,6 +13,8 @@ from genie.libs.parser.iosxe.show_interface import ShowIpInterfaceBrief
 # Import Genie Conf
 from genie.libs.conf.interface import Interface
 
+from vpn_command import vpn_command
+
 class MonitorInterfaces():
 
     def setup(self, testbed):
@@ -50,6 +52,7 @@ class MonitorInterfaces():
                     json.dump(self.curr, intoFile)               
             
             self.summ += self.ipAddLogic(dev.hostname)
+            
             with open('previous_ip_{name}.json'.format(name=dev.hostname), 'w+') as intoFile:
                 json.dump(self.curr, intoFile)
                 
@@ -81,13 +84,20 @@ class MonitorInterfaces():
                         if curr_value['ip_address'] != prev_value['ip_address'] and curr_int == prev_int:
 
                             text+="\n\n"+ curr_int +" IP changed on " + hostname + " at {tim}".format(tim=datetime.now()) + "\n --Previous IP: " + prev_value['ip_address'] + "\n --New IP: " + curr_value['ip_address']
+                        
+                        if curr_value['ip_address'] != prev_value['ip_address'] and curr_int == prev_int and curr_int == 'GigabitEthernet2' and hostname == 'R2':
                             
+                            text += vpn_command(prev_value['ip_address'], curr_value['ip_address'])
+                            print("done")
                     
         return text
 
+                            
+                        
 if __name__ == "__main__":
     # Test Functions
     mon = MonitorInterfaces()
     mon.setup('routers.yml')
+    
     intfl = mon.learn_interface_ip()
-    print(intfl)
+

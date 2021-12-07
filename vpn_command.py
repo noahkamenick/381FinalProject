@@ -21,14 +21,18 @@ def vpn_command(prev_ip, new_ip):
     shell.send('terminal length 0\n')
     shell.send('configure terminal\n')
 
-    shell.send('no crypto isakmp cisco address {}\n'.format(prev_ip))
-    shell.send('crypto isakmp cisco address {}\n'.format(new_ip))
-
+    shell.send('crypto isakmp key cisco address {}\n'.format(new_ip))
+    shell.send('no crypto isakmp key cisco address {}\n'.format(prev_ip))
+    
     shell.send('crypto map Crypt 10 ipsec-isakmp\n')
     shell.send('no set peer {}\n'.format(prev_ip))
     shell.send('set peer {}\n'.format(new_ip))
     shell.send('exit\n')
 
+    
+
     if print(ssh_client.get_transport().is_active()) == True:
         print('Closing connection')
         ssh_client.close()
+
+    return str("\nExecuted VPN Peer IP Change")

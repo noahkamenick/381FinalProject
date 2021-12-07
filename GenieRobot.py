@@ -35,7 +35,7 @@ headers = {'Content-Type': 'application/yang-data+json',
 # Bot Details
 bot_email = '381-Final@webex.bot' #Fill in your Teams Bot email#
 teams_token = 'ZDE2MGRlMDMtYjViYi00ZmY4LTkxMmYtODY0MTE2Y2Q1YWM5OGE4NWViNGYtNGFl_P0A1_529b5ae9-ae34-46f8-9993-5c34c3d90856' #Fill in your Teams Bot Token#
-bot_url = "https://5b75-12-206-249-123.ngrok.io" #Fill in the ngrok forwarding address#
+bot_url = "https://409e-12-206-249-123.ngrok.io" #Fill in the ngrok forwarding address#
 bot_app_name = 'CNIT-381 Network Final Auto Chat Bot'
 
 # Create a Bot Object
