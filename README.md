@@ -1,5 +1,5 @@
-# 381 Final Project | Noah, Chris, and Mason
-This is where our CNIT381 Network Programmability and Automation Final is going to be.
+# 381FinalProject
+This is where our CNIT381 Network Programmability and Automation Final documentation is.
 Everything in this project will be completed using several virtual machines running on virtual box.
 
 GUI Ubuntu virtual machine with 4MB of memory allocated
@@ -20,7 +20,7 @@ PART 1
 
 Configure the devices...
 
-a. copy the CSR1.txt config for to your router 1 VM and the CSR2.txt config to your router 2 VM.
+a. copy the CSR1.txt config to your router 1 VM and the CSR2.txt config to your router 2 VM.
 
 b. pull from our github repository to a folder on your Ubuntu VM that will contain all your bot files.
 
@@ -46,14 +46,16 @@ d. Chat with the bot:
 
 Interact with the bot and receive a greeting message by sending the bot a message like “hey”
 
-![botsc](images/bot1.png)
+![bot1sc](images/bot1.png)
 
 Use the /help command to see what skills the bot has.
 
-###NEED SCREENSHOT###
+![bot2sc](images/bot2.png)
+
+e. send the message "monitor interfaces to the bot"
 
 Now on R1 issue the ping command ping 2.2.2.2 repeat 40000
 
-Finally change the IP address of Gi2 on CSR2 and we should see that the pings on CSR1 stop and then continue after the vpn tunnel is reestablished.
+Finally change the IP address of Gi2 on CSR2 and we should see that the pings on CSR1 stop and then continue after the vpn tunnel is reestablished. We can change this address multiple times to test the monitor interfaces skill.
 
 You can issue a "show run | b crypto" command on CSR1 that shows that the config has changed.
