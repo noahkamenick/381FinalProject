@@ -10,11 +10,11 @@ The primary goal of this project is to build a bot that is capable of maintainin
 
 This is the topology that we are simulating, this topology shows that the gi2 interface on CSR2 receives DHCP addressing and our network needs to be resilient to this:
 
-![Topology1](images/Topology1.png)
+![Topology1](images/Topology1.PNG)
 
 This is the topology we will be using:
 
-![Topology2](images/Topology2.png)
+![Topology2](images/Topology2.PNG)
 
 PART 1 
 
