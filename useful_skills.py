@@ -32,6 +32,7 @@ def get_configured_interfaces(url_base, headers, username, password):
 
 
 if __name__ == "__main__":
+
     import routers
 
     # Router Info

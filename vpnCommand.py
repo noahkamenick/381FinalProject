@@ -40,3 +40,4 @@ def vpn_command(prev_ip, new_ip):
 
 
 # Just a change to run it through CI/CD linting/formatting sorta deal
+# Another format run
