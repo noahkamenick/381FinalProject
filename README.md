@@ -8,14 +8,19 @@ Virtual router allocated 4MB of memory
 
 Starting the bot…
 
-a.	In a new terminal on your GUI virtual machine enter the command “ngrok http 5000”
+a.	In a new terminal on your GUI virtual machine enter the command “ngrok http 5000” Copy the https address for later use. 
 
    ![ngroksc](images/ngrok.png)
 
-b.	Copy the https address for later use 
-   
+b. Open GenieRobot.py in virtual studio and paste the https address here:
+
    ![ngroksc2](images/ngrok2.png)
 
-c.	Open GenieRobot.py in virtual studio and paste the https address here:
- 
+c. Initial connectivity tests:
+
+Check that R1 can ping 172.16.0.2 this should work
+Check that R1 can ping 2.2.2.2 this should work
+
+
+
 
