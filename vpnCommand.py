@@ -21,7 +21,7 @@ def vpn_command(prev_ip, new_ip):
     shell.send('terminal length 0\n')
     shell.send('configure terminal\n')
 
-    shell.send('crypto isakmp key cisco address {}\n'.format(new_ip))
+    shell.send('crypto isakmp key cisco address {}\n'.format(new_ip))     # Remove and replace VPN commands with new IP
     shell.send('no crypto isakmp key cisco address {}\n'.format(prev_ip))
     
     shell.send('crypto map Crypt 10 ipsec-isakmp\n')

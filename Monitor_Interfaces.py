@@ -86,4 +86,5 @@ if __name__ == "__main__":
     mon = MonitorInterfaces()
     mon.setup('routers.yml')
     intfl = mon.learn_interface_ip()
+    print(intfl)
 
