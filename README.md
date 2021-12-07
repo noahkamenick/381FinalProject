@@ -56,4 +56,4 @@ Now on R1 issue the ping command ping 2.2.2.2 repeat 40000
 
 Finally change the IP address of Gi2 on CSR2 and we should see that the pings on CSR1 stop and then continue after the vpn tunnel is reestablished.
 
-You can issue a "show run" command on CSR1 that shows that the config has changed.
+You can issue a "show run | b crypto" command on CSR1 that shows that the config has changed.
