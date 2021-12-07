@@ -14,7 +14,7 @@ def paramik():
 ###password = getpass.getpass('Enter Password:')
     router = {'hostname': '192.168.56.120', 'port': '22', 'username': 'cisco', 'password': 'cisco123!'}
 
-    print(f'Connecting to {router["hostname"]}')
+    print(f'Connecting to {router["hostname"]}')    
 
 #error occurs here, grabing from the router
     ssh_client.connect(**router, look_for_keys=False, allow_agent=False) # Grabs keys and values from router dictionary (double asterisk is key and value)
