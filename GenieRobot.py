@@ -15,7 +15,7 @@ from Monitor_Interfaces import MonitorInterfaces
 #import ansible_skills as a_skill
 import threading as threads
 import time
-from myparamiko import paramik
+from myParamiko import paramik
 
 # Create  thread list
 threads = []

@@ -13,7 +13,7 @@ from genie.libs.parser.iosxe.show_interface import ShowIpInterfaceBrief
 # Import Genie Conf
 from genie.libs.conf.interface import Interface
 
-from vpn_command import vpn_command
+from vpnCommand import vpn_command
 
 class MonitorInterfaces():
 
@@ -42,34 +42,21 @@ class MonitorInterfaces():
             
 
             try:
-                with open('previous_ip_{name}.json'.format(name=dev.hostname)) as f: # Open previous json file
+                with open('./prevCurr/previous_ip_{name}.json'.format(name=dev.hostname)) as f: # Open previous json file
                     self.prev = json.load(f) # Load into prev object
                 
                 
             except:
                 print("No previous file found for {name} \nCreating new file...".format(name=dev.hostname))
-                with open('previous_ip_{name}.json'.format(name=dev.hostname), 'w+') as intoFile:
+                with open('./prevCurr/previous_ip_{name}.json'.format(name=dev.hostname), 'w+') as intoFile:
                     json.dump(self.curr, intoFile)               
             
             self.summ += self.ipAddLogic(dev.hostname)
             
-            with open('previous_ip_{name}.json'.format(name=dev.hostname), 'w+') as intoFile:
+            with open('prevCurr/previous_ip_{name}.json'.format(name=dev.hostname), 'w+') as intoFile:
                 json.dump(self.curr, intoFile)
                 
         return self.summ           
-
-            
-
-            #print(self.prev) # print prev json dictionary
-            
-          
-        """
-          with open('previous_ip_{name}.json'.format(name=dev.hostname), 'w+') as f:
-            json.dump(self.prev, f)
-          
-          """             
-        
-        
     
     def ipAddLogic(self, hostname):
           
@@ -98,6 +85,5 @@ if __name__ == "__main__":
     # Test Functions
     mon = MonitorInterfaces()
     mon.setup('routers.yml')
-    
     intfl = mon.learn_interface_ip()
 
