@@ -13,7 +13,7 @@
 
     - name: Creates directory
       file:
-        path: ./backups/        
+        path: ./backups/
         state: directory
 
     - name: SAVE OUTPUT TO ./backups/
