@@ -18,7 +18,8 @@
   - name: Install requirements and init venv
     pip:
       virtualenv: /home/devasc/Desktop/ncmProject/
-      requirements: /home/devasc/Desktop/381FinalProject/requirements.txt
+      requirements: https://raw.githubusercontent.com/noahkamenick/381FinalProject/dev/requirements.txt
+
 
   - name: Clone git repo
     ansible.builtin.git:
