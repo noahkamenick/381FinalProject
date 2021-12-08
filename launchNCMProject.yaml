@@ -2,7 +2,7 @@
 
 ---
 
-- name: "Deploy project"
+- name: Deploy Noah, Chris, and Mason's Project
   hosts: localhost
   connection: local
   gather_facts: no
@@ -10,7 +10,7 @@
 
   tasks:
 
-  - name: Creates directory
+  - name: Create directory
     file:
       path: /home/devasc/Desktop/ncmProject
       state: directory
@@ -18,7 +18,8 @@
   - name: Install requirements and init venv
     pip:
       virtualenv: /home/devasc/Desktop/ncmProject/
-      requirements: https://raw.githubusercontent.com/noahkamenick/381FinalProject/dev/requirements.txt
+      requirements: /home/devasc/Desktop/381FinalProject/requirements.txt
+        #https://raw.githubusercontent.com/noahkamenick/381FinalProject/dev/requirements.txt
 
 
   - name: Clone git repo
@@ -35,3 +36,9 @@
       group: devasc
       mode: '0777'
       recurse: yes
+
+  - name: Create and add Pre-commit hook
+    command:
+      argv:
+        - cd ~/Desktop/ncmProject/repo
+        - pre-commit install

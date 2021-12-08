@@ -1,6 +1,10 @@
+autoflake==1.4
+black==21.12b0
 genie==21.10
 genie.libs.clean==20.5
+isort==5.10.1
 paramiko==2.7.1
+pre-commit==2.16.0
 requests==2.22.0
 setuptools==45.2.0
 webexteamsbot==0.1.4.2
