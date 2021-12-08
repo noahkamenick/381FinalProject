@@ -20,19 +20,3 @@
       copy:
         content: "{{ config.stdout[0] }}"
         dest: "backups/show_run_{{ inventory_hostname }}_{{ ansible_timestamp }}.txt"
-
-    - name: clone repo
-      git:
-        repo: https://github.com/noahkamenick/routerConfigs.git
-        dest: ./backups/
-        single_branch: yes
-        version: main
-
-    - name: add, commit, and push changes
-      shell:
-        argv:
-          - cd ~/home/devasc/Desktop/ncmProject/repo/backups
-          - git add *
-          - git commit -m "backup of router configs"
-          - git remote add upstream back https://github.com/noahkamenick/routerConfigs.git
-          - git push back
