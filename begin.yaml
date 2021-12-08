@@ -1,0 +1,36 @@
+###Create virtual env
+
+---
+
+- name: "Deploy project"
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  become: yes
+
+  tasks:
+
+  - name: Creates directory
+    file:
+      path: /home/devasc/Desktop/ncmProject
+      state: directory
+
+  - name: Install requirements and init venv
+    pip:
+      virtualenv: /home/devasc/Desktop/ncmProject/
+      requirements: /home/devasc/Desktop/381FinalProject/requirements.txt
+
+  - name: Clone git repo
+    ansible.builtin.git:
+      repo: https://github.com/noahkamenick/381FinalProject.git
+      dest: /home/devasc/Desktop/ncmProject/repo
+      clone: yes
+      version: main
+
+  - name: Reset permissions to devasc
+    file:
+      path: /home/devasc/Desktop/ncmProject/
+      owner: devasc
+      group: devasc
+      mode: '0777'
+      recurse: yes
