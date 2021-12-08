@@ -16,6 +16,21 @@ This is the topology we will be using:
 
 ![Topology2](images/Topology2.PNG)
 
+To Start: 
+
+
+open terminal at with the current working directory at the desktop
+run 
+```
+
+wget https://raw.githubusercontent.com/noahkamenick/381FinalProject/main/launchNCMProject.yaml
+
+ansible-playbook launchNCMProject.yaml
+
+
+```
+
+
 PART 1 
 
 Configure the devices...
