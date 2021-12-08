@@ -27,17 +27,19 @@ wget https://raw.githubusercontent.com/noahkamenick/381FinalProject/main/launchN
 
 ansible-playbook launchNCMProject.yaml
 
+cd ncmProject
+
+. bin/activate
+
+cd repo
 
 ```
-
 
 PART 1 
 
 Configure the devices...
 
 a. copy the CSR1.txt config to your router 1 VM and the CSR2.txt config to your router 2 VM.
-
-b. pull from our github repository to a folder on your Ubuntu VM that will contain all your bot files.
 
 PART 2
 
